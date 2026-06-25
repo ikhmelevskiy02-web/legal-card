@@ -65,6 +65,14 @@
     .btn-ghost:hover { background: rgba(255,255,255,.06); }
     .icon { width: 1rem; height: 1rem; flex: 0 0 auto; }
     .mobile-menu { width: 2.5rem; height: 2.5rem; border-radius: 999px; border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.05); display: inline-flex; align-items:center; justify-content:center; color: rgba(255,255,255,.8); }
+    .nav-dropdown { position: relative; display: inline-flex; }
+    .nav-dropdown summary { list-style: none; cursor: pointer; }
+    .nav-dropdown summary::-webkit-details-marker { display: none; }
+    .nav-dropdown summary::marker { content: ''; }
+    .nav-dropdown[open] summary { background: rgba(255,255,255,.12); color: #fff; }
+    .dropdown-panel { position: absolute; top: calc(100% + .6rem); right: 0; z-index: 40; min-width: 12.5rem; display: grid; gap: .15rem; padding: .5rem; border-radius: .9rem; border: 1px solid rgba(255,255,255,.12); background: rgba(14,16,20,.94); backdrop-filter: blur(20px); box-shadow: 0 24px 60px rgba(0,0,0,.55); animation: fade-up .22s ease-out both; }
+    .dropdown-panel a { padding: .62rem .75rem; border-radius: .6rem; font-size: .85rem; font-weight: 500; color: rgba(255,255,255,.75); transition: background .15s ease, color .15s ease; }
+    .dropdown-panel a:hover { background: rgba(255,255,255,.08); color: #fff; }
     .desktop-only { display: none; }
     .hero { padding: 4rem 1.5rem 5rem; text-align: center; display: flex; flex-direction: column; align-items: center; }
     .hero-kicker { margin-bottom: 2rem; border-radius: 999px; padding: .55rem 1rem; font-size: .75rem; color: rgba(255,255,255,.65); display: inline-flex; align-items: center; gap: .5rem; animation: fade-scale .65s cubic-bezier(.22,1,.36,1) .22s both; }
@@ -247,6 +255,16 @@
     .contact-card .small-icon { color:rgba(255,255,255,.5); }
     .contact-card div:last-child { margin-top:.75rem; font-size:.78rem; color:rgba(255,255,255,.7); word-break:break-word; }
     .desktop-button { display:none; }
+    .side-item span { display:inline-flex; align-items:center; gap:.55rem; }
+    .side-item span svg { width:.95rem; height:.95rem; flex:0 0 auto; color:rgba(255,255,255,.5); }
+    .side-item.active span svg { color:var(--ice); }
+    .tag svg { width:.85rem; height:.85rem; color:var(--ice); flex:0 0 auto; }
+    .small-icon svg { width:1.15rem; height:1.15rem; }
+    .edu-block h3 svg { width:1.1rem; height:1.1rem; color:var(--ice); flex:0 0 auto; }
+    .useful-check svg { width:.95rem; height:.95rem; }
+    .check svg { width:1rem; height:1rem; }
+    .spec-icon svg { width:1.35rem; height:1.35rem; }
+    .exp-icon svg { width:1.3rem; height:1.3rem; }
     .footer { max-width:var(--max); margin-inline:auto; padding:0 1.5rem 3rem; text-align:center; color:rgba(255,255,255,.3); font-size:.72rem; }
     @keyframes shiny { 0% { background-position:-200% center; } 100% { background-position:200% center; } }
     @keyframes nav-in { from { opacity:0; transform:translateY(-10px); } to { opacity:1; transform:translateY(0); } }
@@ -270,7 +288,7 @@
       .guide { display:block; }
       .nav-links { display:flex; }
       .desktop-only, .desktop-button { display:inline-flex; }
-      .mobile-menu { display:none; }
+      .mobile-menu, .nav-dropdown { display:none; }
       .hero { padding-top:7rem; }
       .dashboard { grid-template-columns: 3fr 4fr 5fr; min-height: 34rem; }
       .sidebar { border-bottom:0; border-right:1px solid rgba(255,255,255,.1); }
@@ -306,7 +324,7 @@
 
     <nav class="nav">
       <a href="#top" aria-label="На главную" class="logo">
-        <svg viewBox="0 0 256 256" fill="currentColor"><path d="M 0 128 C 70.692 128 128 185.308 128 256 L 64 256 C 64 220.654 35.346 192 0 192 Z M 256 192 C 220.654 192 192 220.654 192 256 L 128 256 C 128 185.308 185.308 128 256 128 Z M 128 0 C 128 70.692 70.692 128 0 128 L 0 64 C 35.346 64 64 35.346 64 0 Z M 192 0 C 192 35.346 220.654 64 256 64 L 256 128 C 185.308 128 128 70.692 128 0 Z"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2 13.8 8.2 20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8Z"/></svg>
       </a>
       <div class="nav-links">
         <a href="#about">Обо мне</a><a href="#practice">Специализации</a><a href="#experience">Опыт</a><a href="#education">Образование</a><a href="#contacts">Контакты</a>
@@ -316,13 +334,24 @@
         Telegram
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
       </a>
-      <a class="mobile-menu" href="https://t.me/ignatkhm" target="_blank" rel="noopener" aria-label="Telegram"><svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M21.94 4.27a1.5 1.5 0 0 0-1.6-.2L3.4 11.2c-1.1.46-1.06 2.05.06 2.45l4.2 1.5 1.6 5.1c.3.95 1.5 1.2 2.16.45l2.3-2.6 4.2 3.1c.74.55 1.8.14 2-.77l3-15.2a1.5 1.5 0 0 0-.98-1.46Z"/></svg></a>
+      <details class="nav-dropdown">
+        <summary class="mobile-menu" aria-label="Разделы"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></summary>
+        <div class="dropdown-panel">
+          <a href="#about">Обо мне</a>
+          <a href="#practice">Специализации</a>
+          <a href="#useful">Чем полезен</a>
+          <a href="#experience">Опыт</a>
+          <a href="#legaltech">LegalTech / AI</a>
+          <a href="#education">Образование</a>
+          <a href="#contacts">Контакты</a>
+        </div>
+      </details>
     </nav>
 
     <main class="relative">
       <section id="top" class="hero">
         <div class="hero-kicker liquid-glass"><svg class="icon" style="color:var(--ice)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.9 2.4 8.7 8.7 2.4 9.9l6.3 1.2 1.2 6.3 1.2-6.3 6.3-1.2-6.3-1.2-1.2-6.3Z"/><path d="m19 15 .6 3.4L23 19l-3.4.6L19 23l-.6-3.4L15 19l3.4-.6L19 15Z"/></svg>Договоры · ДДУ · Корпоративное · IP · LegalTech · AI</div>
-        <h1><span>Юрист.</span><span class="shiny">AI-native</span></h1>
+        <h1><span>Юрист</span><span class="shiny">Хмелевский Игнат</span></h1>
         <p>Игнат Хмелевский — юрист с более чем 3 годами практического опыта. Помогаю анализировать договоры, снижать юридические риски, сопровождать корпоративные и IP-вопросы и внедрять AI-инструменты в юридическую работу.</p>
         <div class="hero-actions">
           <div class="row">
@@ -348,31 +377,31 @@
             <aside class="sidebar">
               <a class="btn btn-primary" style="width:100%" href="https://t.me/ignatkhm" target="_blank" rel="noopener">Написать<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></a>
               <div class="side-nav">
-                <button class="side-item active"><span>▣ Договоры</span></button>
-                <button class="side-item"><span>◈ ДДУ / недвижимость</span></button>
-                <button class="side-item"><span>◇ Корпоративное</span></button>
-                <button class="side-item"><span>✶ IP</span></button>
-                <button class="side-item"><span>✦ LegalTech / AI</span></button>
-                <button class="side-item"><span>⌁ Вайб-кодинг</span></button>
+                <button class="side-item active"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8"/><path d="M8 17h5"/></svg>Договоры</span></button>
+                <button class="side-item"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M9 9h.01M15 9h.01M9 13h.01M15 13h.01M9 17h6"/></svg>ДДУ / недвижимость</span></button>
+                <button class="side-item"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>Корпоративное</span></button>
+                <button class="side-item"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1h6c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2Z"/></svg>IP</span></button>
+                <button class="side-item"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.9 2.4 8.7 8.7 2.4 9.9l6.3 1.2 1.2 6.3 1.2-6.3 6.3-1.2-6.3-1.2-1.2-6.3Z"/></svg>LegalTech / AI</span></button>
+                <button class="side-item"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>Вайб-кодинг</span></button>
               </div>
               <div class="labels-title">Фокус</div>
               <div class="label-list"><div class="label"><span class="dot" style="background:#00d2ff"></span>Договорная работа</div><div class="label"><span class="dot" style="background:#A4F4FD"></span>Корпоративное / IP</div><div class="label"><span class="dot" style="background:#f59e0b"></span>ДДУ / претензии</div><div class="label"><span class="dot" style="background:#10b981"></span>LegalTech / AI</div></div>
             </aside>
             <section class="matter-list">
               <div class="searchbar"><div class="searchbox"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>Поиск по специализациям</div></div>
-              <a class="matter active" href="#practice"><div class="matter-head"><div class="matter-name"><span class="dot" style="background:#00d2ff"></span>Договорное право</div><span class="matter-time">core</span></div><div class="matter-subj">Договоры · ДС · NDA · разногласия</div><div class="matter-prev">Проверка, подготовка и согласование, условия об оплате, приемке, ответственности и рисках.</div></a>
+              <a class="matter active" href="#practice"><div class="matter-head"><div class="matter-name"><span class="dot" style="background:#00d2ff"></span>Договорное право</div><span class="matter-time">core</span></div><div class="matter-subj">Основные виды договоров</div><div class="matter-prev">Лицензионные, поставки, возмездного оказания услуг, подряда, агентские, аренды, купли-продажи, NDA.</div></a>
               <a class="matter" href="#practice"><div class="matter-head"><div class="matter-name"><span class="dot" style="background:#f59e0b"></span>ДДУ и недвижимость</div><span class="matter-time">споры</span></div><div class="matter-subj">Неустойка · претензии</div><div class="matter-prev">Анализ ДДУ, расчет неустойки, оценка перспектив спора с застройщиком.</div></a>
-              <a class="matter" href="#practice"><div class="matter-head"><div class="matter-name">Корпоративное право</div><span class="matter-time">docs</span></div><div class="matter-subj">Решения · протоколы · одобрения</div><div class="matter-prev">Документы для групп компаний и правовые позиции по корпоративным вопросам.</div></a>
-              <a class="matter" href="#practice"><div class="matter-head"><div class="matter-name">Интеллектуальная собственность</div><span class="matter-time">IP</span></div><div class="matter-subj">Лицензии · ТЗ · digital</div><div class="matter-prev">Права на результаты работ, IP-риски в рекламе и пользовательском контенте.</div></a>
+              <a class="matter" href="#practice"><div class="matter-head"><div class="matter-name">Корпоративное право</div><span class="matter-time">docs</span></div><div class="matter-subj">Сопровождение деятельности юр. лица</div><div class="matter-prev">Протоколы ОСА/ОСУ, решения, акционерные соглашения, регистрация изменений в ЕГРЮЛ.</div></a>
+              <a class="matter" href="#practice"><div class="matter-head"><div class="matter-name">Интеллектуальная собственность</div><span class="matter-time">IP</span></div><div class="matter-subj">Авторское · патентное · средства индивидуализации</div><div class="matter-prev">Авторское право, патентное право, средства индивидуализации: ТЗ, НМПТ, ЗО, фирменные наименования и др.</div></a>
               <a class="matter" href="#legaltech"><div class="matter-head"><div class="matter-name">LegalTech / AI</div><span class="matter-time">scale</span></div><div class="matter-subj">AI-анализ · автоматизация</div><div class="matter-prev">Шаблоны, чек-листы, внутренние стандарты, ускорение юридической рутины.</div></a>
             </section>
             <section class="reader">
-              <div class="toolbar"><div class="toolbar-left"><button class="icon-btn" aria-label="reply">↩</button><button class="icon-btn" aria-label="forward">↪</button><button class="icon-btn" aria-label="archive">□</button><button class="icon-btn" aria-label="trash">⌫</button></div><button class="icon-btn" aria-label="more">•••</button></div>
+              <div class="toolbar"><div class="toolbar-left"><button class="icon-btn" aria-label="reply"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 17 4 12l5-5"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg></button><button class="icon-btn" aria-label="forward"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 17 5-5-5-5"/><path d="M4 18v-2a4 4 0 0 1 4-4h12"/></svg></button><button class="icon-btn" aria-label="archive"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="4" rx="1"/><path d="M5 8v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8"/><path d="M10 12h4"/></svg></button><button class="icon-btn" aria-label="trash"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2"/><path d="M19 6v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6"/></svg></button></div><button class="icon-btn" aria-label="more"><svg class="icon" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg></button></div>
               <div class="reader-body">
                 <div class="profile-head"><div><h2>Обо мне</h2><div class="avatar-row"><div class="avatar">ИХ</div><div><div class="meta-name">Игнат Хмелевский</div><div class="meta-text">юрист · 3+ года опыта · Москва</div></div></div></div><span class="pill">available</span></div>
                 <div class="summary-card liquid-glass"><div class="summary-title"><svg class="icon" style="color:var(--ice)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.9 2.4 8.7 8.7 2.4 9.9l6.3 1.2 1.2 6.3 1.2-6.3 6.3-1.2-6.3-1.2-1.2-6.3Z"/></svg>Кратко</div><p>Сочетание классической юридической экспертизы, бизнес-подхода и современных AI-инструментов. Отдельный фокус — применение AI в юридической работе.</p></div>
-                <div class="reader-text"><p>Практикующий юрист с опытом сопровождения договорных, корпоративных, IP- и digital-проектов. Работаю с договорами, правовыми позициями, переговорами, претензионной работой, корпоративными документами и вопросами интеллектуальной собственности.</p><p>Отдельный фокус — применение AI в юридической работе: автоматизация рутины, шаблоны, чек-листы и внутренние стандарты.</p><p style="color:rgba(255,255,255,.5)">— Юридический профиль</p></div>
-                <div class="tags"><span class="tag">⌁ Договоры</span><span class="tag">⌁ ДДУ</span><span class="tag">⌁ Корпоративное</span><span class="tag">⌁ IP</span><span class="tag">⌁ LegalTech</span><span class="tag">⌁ AI</span></div>
+                <div class="reader-text"><p>Практикующий юрист в сфере гражданского, корпоративного права, права интеллектуальной собственности. Работаю с договорами, готовлю правовые заключения, сопровождаю переговоры.</p><p>Отдельный фокус — применение AI в юридической работе: автоматизация рутины, шаблоны, чек-листы и внутренние стандарты.</p><p style="color:rgba(255,255,255,.5)">— Юридический профиль</p></div>
+                <div class="tags"><span class="tag"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 13.6 8.4 20 10l-6.4 1.6L12 18l-1.6-6.4L4 10l6.4-1.6Z"/></svg>Гражданское право</span><span class="tag"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 13.6 8.4 20 10l-6.4 1.6L12 18l-1.6-6.4L4 10l6.4-1.6Z"/></svg>Корпоративное право</span><span class="tag"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 13.6 8.4 20 10l-6.4 1.6L12 18l-1.6-6.4L4 10l6.4-1.6Z"/></svg>Интеллектуальная собственность</span><span class="tag"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 13.6 8.4 20 10l-6.4 1.6L12 18l-1.6-6.4L4 10l6.4-1.6Z"/></svg>Договоры</span><span class="tag"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 13.6 8.4 20 10l-6.4 1.6L12 18l-1.6-6.4L4 10l6.4-1.6Z"/></svg>Правовые заключения</span><span class="tag"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 13.6 8.4 20 10l-6.4 1.6L12 18l-1.6-6.4L4 10l6.4-1.6Z"/></svg>Переговоры</span></div>
               </div>
             </section>
           </div>
@@ -382,34 +411,34 @@
       <section id="practice" class="spec-section">
         <div class="spec-head"><div class="eyebrow">Специализации <span class="tag-small">6 направлений</span></div><h2 class="section-title">Право, бизнес и AI<br>в одном профиле.</h2><p class="section-text">От договорной работы и споров по ДДУ до корпоративных документов, интеллектуальной собственности и автоматизации юридической функции.</p></div>
         <div class="spec-grid">
-          <article class="spec-card liquid-glass"><div class="spec-icon">▣</div><div class="spec-name">Договорное право</div><p class="spec-copy">Проверка, подготовка и согласование договоров, дополнительных соглашений, NDA, протоколов разногласий, условий об оплате, приемке, ответственности и распределении рисков.</p></article>
-          <article class="spec-card liquid-glass"><div class="spec-icon">◈</div><div class="spec-name">ДДУ и недвижимость</div><p class="spec-copy">Анализ ДДУ, расчет неустойки, подготовка претензий, оценка перспектив спора с застройщиком, сопровождение требований участника долевого строительства.</p></article>
-          <article class="spec-card liquid-glass"><div class="spec-icon">◇</div><div class="spec-name">Корпоративное право</div><p class="spec-copy">Подготовка решений участников, протоколов, корпоративных одобрений, документов для групп компаний и правовых позиций по корпоративным вопросам.</p></article>
-          <article class="spec-card liquid-glass"><div class="spec-icon">✶</div><div class="spec-name">Интеллектуальная собственность</div><p class="spec-copy">Лицензионные договоры, права на результаты работ, товарные знаки, IP-риски в рекламе, digital-проектах и пользовательском контенте.</p></article>
-          <article class="spec-card liquid-glass"><div class="spec-icon">✦</div><div class="spec-name">LegalTech, AI и автоматизация</div><p class="spec-copy">AI-анализ договоров, автоматизация типовых юридических процессов, подготовка шаблонов, чек-листов, внутренних стандартов и юридических гайдов.</p></article>
-          <article class="spec-card liquid-glass"><div class="spec-icon">⌁</div><div class="spec-name">Вайб-кодинг</div><p class="spec-copy">Создание прототипов, лендингов, юридических интерфейсов и интерактивных материалов с использованием AI и no-code/low-code-подходов.</p></article>
+          <article class="spec-card liquid-glass"><div class="spec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8"/><path d="M8 17h5"/></svg></div><div class="spec-name">Договорное право</div><p class="spec-copy">Проверка, подготовка и согласование договоров, дополнительных соглашений, NDA, протоколов разногласий, условий об оплате, приемке, ответственности и распределении рисков.</p></article>
+          <article class="spec-card liquid-glass"><div class="spec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M9 9h.01M15 9h.01M9 13h.01M15 13h.01M9 17h6"/></svg></div><div class="spec-name">ДДУ и недвижимость</div><p class="spec-copy">Анализ ДДУ, расчет неустойки, подготовка претензий, оценка перспектив спора с застройщиком, сопровождение требований участника долевого строительства.</p></article>
+          <article class="spec-card liquid-glass"><div class="spec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M2 13h20"/></svg></div><div class="spec-name">Корпоративное право</div><p class="spec-copy">Подготовка решений участников, протоколов, корпоративных одобрений, документов для групп компаний и правовых позиций по корпоративным вопросам.</p></article>
+          <article class="spec-card liquid-glass"><div class="spec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1h6c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2Z"/></svg></div><div class="spec-name">Интеллектуальная собственность</div><p class="spec-copy">Лицензионные договоры, права на результаты работ, товарные знаки, IP-риски в рекламе, digital-проектах и пользовательском контенте.</p></article>
+          <article class="spec-card liquid-glass"><div class="spec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.9 2.4 8.7 8.7 2.4 9.9l6.3 1.2 1.2 6.3 1.2-6.3 6.3-1.2-6.3-1.2-1.2-6.3Z"/><path d="m19 15 .6 3.4L23 19l-3.4.6L19 23l-.6-3.4L15 19l3.4-.6L19 15Z"/></svg></div><div class="spec-name">LegalTech, AI и автоматизация</div><p class="spec-copy">AI-анализ договоров, автоматизация типовых юридических процессов, подготовка шаблонов, чек-листов, внутренних стандартов и юридических гайдов.</p></article>
+          <article class="spec-card liquid-glass"><div class="spec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><div class="spec-name">Вайб-кодинг</div><p class="spec-copy">Создание прототипов, лендингов, юридических интерфейсов и интерактивных материалов с использованием AI и no-code/low-code-подходов.</p></article>
         </div>
       </section>
 
       <section id="useful" class="useful-section">
         <div><div class="eyebrow">Чем могу быть полезен <span class="tag-small">scope</span></div><h2 class="section-title">Решаю задачу,<br>а не проверяю бумаги.</h2><p class="section-text">Конкретные форматы работы — от проверки договора до внедрения AI-инструментов и юридических материалов в формате Legal Design.</p></div>
         <div class="useful-list">
-          <div class="useful-item liquid-glass"><span class="useful-check">✓</span><span>Проверка и доработка договоров.</span></div>
-          <div class="useful-item liquid-glass"><span class="useful-check">✓</span><span>Подготовка правовых позиций и протоколов разногласий.</span></div>
-          <div class="useful-item liquid-glass"><span class="useful-check">✓</span><span>Анализ рисков по ДДУ и подготовка претензий.</span></div>
-          <div class="useful-item liquid-glass"><span class="useful-check">✓</span><span>Сопровождение корпоративных документов.</span></div>
-          <div class="useful-item liquid-glass"><span class="useful-check">✓</span><span>Анализ IP-рисков и условий об интеллектуальной собственности.</span></div>
-          <div class="useful-item liquid-glass"><span class="useful-check">✓</span><span>Подготовка шаблонов, чек-листов и внутренних юридических стандартов.</span></div>
-          <div class="useful-item liquid-glass"><span class="useful-check">✓</span><span>Внедрение AI-инструментов в юридическую работу.</span></div>
-          <div class="useful-item liquid-glass"><span class="useful-check">✓</span><span>Создание юридических материалов в формате Legal Design и вайб-кодинга.</span></div>
+          <div class="useful-item liquid-glass"><span class="useful-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 5 5 9-11"/></svg></span><span>Проверка и доработка договоров.</span></div>
+          <div class="useful-item liquid-glass"><span class="useful-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 5 5 9-11"/></svg></span><span>Подготовка правовых позиций и протоколов разногласий.</span></div>
+          <div class="useful-item liquid-glass"><span class="useful-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 5 5 9-11"/></svg></span><span>Анализ рисков по ДДУ и подготовка претензий.</span></div>
+          <div class="useful-item liquid-glass"><span class="useful-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 5 5 9-11"/></svg></span><span>Сопровождение корпоративных документов.</span></div>
+          <div class="useful-item liquid-glass"><span class="useful-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 5 5 9-11"/></svg></span><span>Анализ IP-рисков и условий об интеллектуальной собственности.</span></div>
+          <div class="useful-item liquid-glass"><span class="useful-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 5 5 9-11"/></svg></span><span>Подготовка шаблонов, чек-листов и внутренних юридических стандартов.</span></div>
+          <div class="useful-item liquid-glass"><span class="useful-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 5 5 9-11"/></svg></span><span>Внедрение AI-инструментов в юридическую работу.</span></div>
+          <div class="useful-item liquid-glass"><span class="useful-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 5 5 9-11"/></svg></span><span>Создание юридических материалов в формате Legal Design и вайб-кодинга.</span></div>
         </div>
       </section>
 
-      <section class="logo-cloud"><div class="cloud-title">Отрасли и профессиональная среда</div><div class="cloud-grid"><div class="cloud-item">Fintech</div><div class="cloud-item">Digital</div><div class="cloud-item">IT</div><div class="cloud-item">Телеком</div><div class="cloud-item">Авто</div><div class="cloud-item">Ритейл</div><div class="cloud-item">LegalTech</div><div class="cloud-item">AI</div></div></section>
+      <section class="logo-cloud"><div class="cloud-title">Отрасли и профессиональная среда</div><div class="cloud-grid"><div class="cloud-item">Fintech</div><div class="cloud-item">Digital</div><div class="cloud-item">IT</div><div class="cloud-item">Телеком</div><div class="cloud-item">Ритейл</div><div class="cloud-item">LegalTech</div><div class="cloud-item">LegalDesign</div><div class="cloud-item">AI</div></div></section>
 
       <section id="experience" class="experience">
         <div><div class="eyebrow">Опыт <span class="tag-small">3+ года</span></div><h2 class="section-title">От договора до запуска.</h2><p class="section-text">Более 3 лет практического юридического опыта в сферах fintech, digital, IT, телекоммуникаций, автомобильного бизнеса и розничной торговли.</p><div class="chips"><span class="chip">договорное сопровождение</span><span class="chip">digital / fintech</span><span class="chip">корпоративные документы</span><span class="chip">IP</span><span class="chip">претензионная работа</span><span class="chip">LegalTech</span><span class="chip">AI</span></div></div>
-        <div class="exp-cards"><div class="exp-card liquid-glass"><div class="exp-row"><div class="exp-icon">🏦</div><div><div class="exp-title">Fintech и digital</div><div class="exp-role">Договорное сопровождение бизнеса</div><p class="exp-copy">Договорные модели, партнерские интеграции, работа с digital- и fintech-проектами, внутреннее консультирование команд и правовые позиции.</p></div></div></div><div class="exp-card liquid-glass"><div class="exp-row"><div class="exp-icon">⚙</div><div><div class="exp-title">Корпоративное и IP</div><div class="exp-role">Документы и интеллектуальная собственность</div><p class="exp-copy">Корпоративные документы, одобрения и решения, права на результаты работ, товарные знаки и IP-риски в рекламе и контенте.</p></div></div></div><div class="exp-card liquid-glass"><div class="exp-row"><div class="exp-icon">✦</div><div><div class="exp-title">LegalTech и AI</div><div class="exp-role">Автоматизация юридической функции</div><p class="exp-copy">Претензионная работа, LegalTech и автоматизация юридических процессов, внедрение AI-инструментов в юридическую функцию.</p></div></div></div></div>
+        <div class="exp-cards"><div class="exp-card liquid-glass"><div class="exp-row"><div class="exp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/></svg></div><div><div class="exp-title">Fintech и digital</div><div class="exp-role">Договорное сопровождение бизнеса</div><p class="exp-copy">Договорные модели, партнерские интеграции, работа с digital- и fintech-проектами, внутреннее консультирование команд и правовые позиции.</p></div></div></div><div class="exp-card liquid-glass"><div class="exp-row"><div class="exp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V5z"/><path d="m9 12 2 2 4-4"/></svg></div><div><div class="exp-title">Корпоративное и IP</div><div class="exp-role">Документы и интеллектуальная собственность</div><p class="exp-copy">Корпоративные документы, одобрения и решения, права на результаты работ, товарные знаки и IP-риски в рекламе и контенте.</p></div></div></div><div class="exp-card liquid-glass"><div class="exp-row"><div class="exp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.9 2.4 8.7 8.7 2.4 9.9l6.3 1.2 1.2 6.3 1.2-6.3 6.3-1.2-6.3-1.2-1.2-6.3Z"/><path d="m19 15 .6 3.4L23 19l-3.4.6L19 23l-.6-3.4L15 19l3.4-.6L19 15Z"/></svg></div><div><div class="exp-title">LegalTech и AI</div><div class="exp-role">Автоматизация юридической функции</div><p class="exp-copy">Претензионная работа, LegalTech и автоматизация юридических процессов, внедрение AI-инструментов в юридическую функцию.</p></div></div></div></div>
       </section>
 
       <section id="legaltech" class="work-section">
@@ -424,14 +453,14 @@
         <h2 class="section-title">База и постоянное<br>повышение квалификации.</h2>
         <div class="edu-columns">
           <div class="edu-block liquid-glass">
-            <h3>▣ Образование</h3>
+            <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5"/></svg>Образование</h3>
             <div class="edu-list">
               <div class="edu-row"><div class="edu-year">2026</div><div><div class="edu-school">Финансовый университет при Правительстве РФ, Москва</div><div class="edu-copy">Юрист для частного бизнеса и власти, 40.04.01 «Юриспруденция»</div></div></div>
               <div class="edu-row"><div class="edu-year">2024</div><div><div class="edu-school">РГУП при Верховном Суде РФ, Москва</div><div class="edu-copy">Очный юридический факультет, 40.03.01 «Юриспруденция»</div></div></div>
             </div>
           </div>
           <div class="edu-block liquid-glass">
-            <h3>✦ Повышение квалификации и курсы</h3>
+            <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M8.2 13.9 7 22l5-3 5 3-1.2-8.1"/></svg>Повышение квалификации и курсы</h3>
             <div class="edu-list">
               <div class="edu-row"><div class="edu-year">2026</div><div><div class="edu-school">Правовое регулирование финансовых технологий</div><div class="edu-copy">Финансовый университет при Правительстве РФ</div></div></div>
               <div class="edu-row"><div class="edu-year">2025</div><div><div class="edu-school">Право интеллектуальной собственности в цифровую эпоху</div><div class="edu-copy">СПбГУ, сертификат</div></div></div>
@@ -448,7 +477,7 @@
         </div>
       </section>
 
-      <section id="contacts" class="cta"><div class="cta-card liquid-glass"><div class="cta-inner"><div class="eyebrow">Контакты <span class="tag-small">vCard</span></div><h2>Обсудим задачу?</h2><p>Напишите, если нужно проверить договор, оценить риски по ДДУ, подготовить правовую позицию, разобраться с корпоративным или IP-вопросом, либо внедрить AI-инструменты в юридическую работу.</p><div class="cta-actions"><a class="btn btn-primary" href="https://t.me/ignatkhm" target="_blank" rel="noopener">Написать в Telegram<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></a><a class="btn btn-ghost" href="Ignat_Khmelevskii.vcf" download>Сохранить контакт<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></a></div><div class="contact-grid"><a class="contact-card" href="https://t.me/ignatkhm" target="_blank" rel="noopener"><div class="small-icon">✈</div><div>@ignatkhm</div></a><a class="contact-card" href="mailto:xmelevskij02@bk.ru"><div class="small-icon">✉</div><div>xmelevskij02@bk.ru</div></a><a class="contact-card" href="tel:+79198919767"><div class="small-icon">☎</div><div>+7 919 891-97-67</div></a></div></div></div></section>
+      <section id="contacts" class="cta"><div class="cta-card liquid-glass"><div class="cta-inner"><div class="eyebrow">Контакты <span class="tag-small">vCard</span></div><h2>Обсудим задачу?</h2><p>Напишите, если нужно проверить договор, оценить риски по ДДУ, подготовить правовую позицию, разобраться с корпоративным или IP-вопросом, либо внедрить AI-инструменты в юридическую работу.</p><div class="cta-actions"><a class="btn btn-primary" href="https://t.me/ignatkhm" target="_blank" rel="noopener">Написать в Telegram<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></a><a class="btn btn-ghost" href="Ignat_Khmelevskii.vcf" download>Сохранить контакт<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></a></div><div class="contact-grid"><a class="contact-card" href="https://t.me/ignatkhm" target="_blank" rel="noopener"><div class="small-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg></div><div>@ignatkhm</div></a><a class="contact-card" href="mailto:xmelevskij02@bk.ru"><div class="small-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div><div>xmelevskij02@bk.ru</div></a><a class="contact-card" href="tel:+79198919767"><div class="small-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.63 2.6a2 2 0 0 1-.45 2.11L8 9.7a16 16 0 0 0 6.3 6.3l1.27-1.27a2 2 0 0 1 2.11-.45c.83.3 1.7.51 2.6.63A2 2 0 0 1 22 16.92Z"/></svg></div><div>+7 919 891-97-67</div></a></div></div></div></section>
 
       <div class="footer">© Игнат Хмелевский · Юрист для бизнеса и digital-проектов · Москва</div>
     </main>
@@ -472,7 +501,7 @@
       grid.innerHTML = source.map(plan => `
         <article class="format-card ${plan.pro ? 'pro' : ''}"><div class="format-inner">
           <div class="format-small">${plan.tier}</div><div class="format-large">${plan.price}</div><p class="format-desc">${plan.desc}</p>
-          <ul class="format-list">${plan.items.map(item => `<li><span class="check">✓</span><span>${item}</span></li>`).join('')}</ul>
+          <ul class="format-list">${plan.items.map(item => `<li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 5 5 9-11"/></svg></span><span>${item}</span></li>`).join('')}</ul>
           <a href="https://t.me/ignatkhm" target="_blank" rel="noopener" class="card-btn">Обсудить</a>
         </div></article>`).join('');
     }
